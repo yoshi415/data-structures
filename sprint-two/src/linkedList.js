@@ -7,17 +7,16 @@ var LinkedList = function(){
     // adds value to end of list
     // update list.tail
     // update previous node.next to added node
+    var newNode = new Node(value);
     if (this.tail === null) {
       // if list is completely empty
       // assign tail to new object 
-      this.tail = new Node(value);
+      this.head = this.tail = newNode;
       // head and tail are the same
-      this.head = this.tail;
     } else {
       // if list has nodes
       // assign new object to 
-      this.head.next = new Node(value);
-      this.tail = this.head.next;
+      this.tail = this.head.next = newNode;
     }
   };
 
@@ -28,14 +27,37 @@ var LinkedList = function(){
     var temp = this.head;
     delete this.head;
     this.head = temp.next; 
-    return temp;
+    return temp.value;
   };
 
   list.contains = function(target){
-    // loop over nodes and returns boolean if value exists
-    for (var key in this) {
-      
+    // check if head node has target value
+    var test;
+    if (this.head.value === target){
+      test = true;
     }
+    //redefine head to variable search node
+    var searchNode = this.head;
+    //function to search each following node
+    var search = function() {
+      //base case - stops at null
+      if (searchNode.value === target) {
+        test = true;
+        return;
+      } 
+      else if (searchNode.next === null) {
+        test = false;
+        return;
+      }
+
+      else {
+        //recursive search
+        searchNode = searchNode.next;
+        search();
+      }
+    };
+    search();
+    return test;
   };
 
   return list;
