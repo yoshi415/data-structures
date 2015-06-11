@@ -21,13 +21,13 @@ queueMethods.enqueue = function(val){
 
 queueMethods.dequeue = function(){
   if (this.count > 0) {
-    this.count--;
-  }
-  if (this.end >= 1){
-    var temp = this[this.start - this.end];
-    delete this[this.start - this.end];
-    this.start++;
-    return temp;
+    this.count--; 
+    if (this.end >= 1){
+      var temp = this[this.start - this.end];
+      delete this[this.start - this.end];
+      this.start++;
+      return temp;
+    }
   }
 };
 
