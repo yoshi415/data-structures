@@ -32,24 +32,21 @@ var LinkedList = function(){
 
   list.contains = function(target){
     // check if head node has target value
-    var test;
+    var test,
+        //redefine head to variable search node
+        searchNode = this.head;
     if (this.head.value === target){
       test = true;
     }
-    //redefine head to variable search node
-    var searchNode = this.head;
     //function to search each following node
     var search = function() {
       //base case - stops at null
       if (searchNode.value === target) {
-        test = true;
-        return;
+        return test = true;
       } 
       else if (searchNode.next === null) {
-        test = false;
-        return;
+        return test = false;
       }
-
       else {
         //recursive search
         searchNode = searchNode.next;
