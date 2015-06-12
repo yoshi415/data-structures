@@ -16,34 +16,43 @@ var Tree = function(value){
 var treeMethods = {};
 
 treeMethods.addChild = function(value){
+  // create new object to push to children array
   var newTree = new Tree(value);
   this.children.push(newTree);
-
 };
 
 treeMethods.contains = function(target){
-  //
-  var found,
-      searchChild = 
-  if (this.value === target) {
+  var searchNode = this,
+      found = false;
+  // checks parent for target
+  if (_.contains(searchNode, target) === true) {
     return true;
   }
-  // define recursive function
-  var search = function() {
-    for (var i = 0, len = this.children.length; i < len; i++) {
-      
-    }
+  // recursive function to traverse tree
+  var search = function(something) {
+    // iterate over children's array
+    _.each(searchNode.children, function(child, index) {
+      // checks if target is found
+      if (child.value === target) {
+        return found = true;
+      } else {
+        // redefines to sub-children
+        searchNode = child;
+        search();
+      }
+    })
   }
+
   search();
-  return some variable;
+  return found;
 };
 
 
 /*
  * Complexity: What is the time complexity of the above functions?
  */
-// [[0, 1, 2, 3], [0, 1, 2, 3, 4]]
 
-// array[0][3] = 3
-// array[0][4] = 4
-[{a: 1, b: {c: 2}}]
+
+// var parent = {value : "parent", 
+//   [{value: "first child", [{value: "1st GC"}]}, {value: "second child"}]
+// }
