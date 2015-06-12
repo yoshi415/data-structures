@@ -3,21 +3,25 @@ var LinkedList = function(){
   list.head = null;
   list.tail = null;
 
+/*
+{value: 12, next: {
+  value: 6, next: {
+    value: 71, next: null
+  }
+}}
+*/
   list.addToTail = function(value){
     // adds value to end of list
     // update list.tail
     // update previous node.next to added node
     var newNode = new Node(value);
-    if (this.tail === null) {
-      // if list is completely empty
-      // assign tail to new object 
-      this.head = this.tail = newNode;
-      // head and tail are the same
-    } else {
-      // if list has nodes
-      // assign new object to 
-      this.tail = this.head.next = newNode;
+    if (!this.head) {
+      this.head = newNode;
     }
+    if (this.tail) {
+      this.tail.next = newNode;
+    }
+    this.tail = newNode;
   };
 
   list.removeHead = function(){
