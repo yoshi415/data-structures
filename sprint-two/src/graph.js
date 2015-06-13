@@ -25,23 +25,40 @@ Graph.prototype.removeNode = function(node){
 };
 
 Graph.prototype.hasEdge = function(fromNode, toNode){
+  if (this.storage[fromNode].edges.indexOf(toNode) > -1) {
+    return true;
+  }
+  else {
+    return false;
+  }
 };
 
 Graph.prototype.addEdge = function(fromNode, toNode){
+  this.storage[fromNode].edges.push(toNode);
+  this.storage[toNode].edges.push(fromNode);
 };
 
 Graph.prototype.removeEdge = function(fromNode, toNode){
+  var fromArray = this.storage[fromNode].edges
+      toArray = this.storage[toNode].edges,
+      fromIndex = toArray.indexOf(fromNode),
+      toIndex = fromArray.indexOf(toNode);
+  fromArray.splice(fromIndex, 1);
+  toArray.splice(toIndex, 1)
 };
 
 Graph.prototype.forEachNode = function(cb){
+  _.each(this.storage, function(value, key) {
+    cb(key)
+  })
 };
 
 /*
  * Complexity: What is the time complexity of the above functions?
  */
 
-var GraphNode = function(value){
-   this.value = value;
+var GraphNode = function(node){
+   // this.value = value;
    this.edges = [];
  }
 
