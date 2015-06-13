@@ -3,13 +3,6 @@ var LinkedList = function(){
   list.head = null;
   list.tail = null;
 
-/*
-{value: 12, next: {
-  value: 6, next: {
-    value: 71, next: null
-  }
-}}
-*/
   list.addToTail = function(value){
     // adds value to end of list
     // update list.tail
