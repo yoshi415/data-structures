@@ -1,33 +1,68 @@
 var BinarySearchTree = function(value){
 
-  var bst = {}
-  bst._root = null;
+  var bst = new Node(value);
 
   bst.insert = function(value) {
     var newNode = new Node(value);
-    if (this.left === null) {
-      this.left = newNode;
-    } 
-    else if (this.right === null) {
-      this.right = newNode;
-    } else {
-      // go to next node and recurse?
+
+    var findEmptyNode = function(searchNode) {
+      if (value < searchNode.value) {
+        if (searchNode.left === null) {
+          searchNode.left = newNode;
+        } else {
+          findEmptyNode(searchNode.left)
+        }
+      } 
+      else if (value > searchNode.value) {
+        if (searchNode.right === null) {
+          searchNode.right = newNode;
+        }
+        else {
+          findEmptyNode(searchNode.right)
+        }
+      }  
     }
-    //check if parent exists
-    //does node go on left or right side
-      //
-    //
+    findEmptyNode(this);
   }
 
-  bst.contains = function(value) {
-    var found = false,
-      current = this._root;
-
-    return found;
+  bst.contains = function(val) {
+    var result = false;
+    var containsValue = function(searchNode) {
+      if (searchNode.value === val) {
+        result = true;
+      } else if (val < searchNode.value) {
+        if (!searchNode.left) {
+          result = false;
+        } else {
+          containsValue(searchNode.left)
+        }
+      } else if (val > searchNode.value) {
+        if (!searchNode.right) {
+          result = false;
+        } else {
+          containsValue(searchNode.right) 
+        }
+      }
+    }
+    containsValue(this);
+    return result;
   }
 
   bst.depthFirstLog = function(cb) {
-
+    var results = [];
+    results.push(cb(this.value))
+    var runCB = function(searchNode) {    
+      if (searchNode.left) {
+        results.push(cb(searchNode.left.value)); 
+        runCB(searchNode.left)
+      } 
+      if (searchNode.right) {
+        results.push(cb(searchNode.right.value))
+        runCB(searchNode.right)
+      } 
+    }
+    runCB(this)
+    return results;
   }
 
   return bst;
@@ -35,9 +70,10 @@ var BinarySearchTree = function(value){
 
 var Node = function(value) {
   var node = {};
-  this.value = value;
-  this.left = null;
-  this.right = null;
+
+  node.value = value;
+  node.left = null;
+  node.right = null;
 
   return node;
 }
